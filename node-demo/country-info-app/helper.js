@@ -1,6 +1,5 @@
 var fs = require('fs');
 
-
 var readCountries = function (filename, callback) {
 	fs.readFile (filename, 'utf8', function(err, file) {
 		if(err) {

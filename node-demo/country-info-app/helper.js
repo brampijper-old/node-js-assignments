@@ -9,10 +9,9 @@ var readCountries = function (typedCountry) {
 
 		var parsedFile = JSON.parse(file);
 		for(var i = 0; i < parsedFile.length; i++ ) {
-			data = parsedFile[i]
-			if (data.name == typedCountry) {
+			if (parsedFile[i].name == typedCountry) {
 				console.log('Country: ' + typedCountry)
-				console.log('TopLevelDomain: ' + data.topLevelDomain)
+				console.log('TopLevelDomain: ' + parsedFile[i].topLevelDomain)
 			}
 		}
 	})

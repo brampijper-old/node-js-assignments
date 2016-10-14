@@ -3,14 +3,14 @@
 	"age": 25, 
 	"finances": {
 		"startcapital": 1000,
-		"monthlyadd": 100,
+		"monthlyadd": 100
 	},
 	"pension": {
 		"age": 65,
 		"interest": {
-			"pessimistic": 2,
-			"average": 4,
-			"optimistic": 8 
+			"pessimistic": 1.02,
+			"average": 1.04,
+			"optimistic": 1.08 
 		} 
 	}
 }

@@ -1,0 +1,178 @@
+Instructions:
+
+- Add your answers inline to the markdown file.
+- Use your own words.
+- Come up with an answer from memory. Write it down, even if the answer is "I don't know."
+- Then, submit all of your answers in a file to canvas. This is so Lloyd and I can get a sense of your understanding.
+- Finally, we will go over the answers in class. Write down your revised answer below your original answer.
+
+
+---
+### Part 1: Control Flow - 15 minutes
+
+
+1. Write an if statement. Name each of the components and how they work together.
+
+if (cookiesLeft == true) {
+	console.log("I'm Happy")
+}
+
+if: 		Just means if sometimes is ... true, false or equel ... to
+(): 		Parenthesis. Inside the parenthesis you can insert a statement.
+statement: 	In this case the statement checks if the variable called cookiesLeft is equal to true. 
+true: 		is a boolean type
+{}: 		Curly brackets are being used to run the code inside of it (if the statement euqals true).
+"": 		Quotations are being used to define a string (a variable type) 
+
+
+
+2. Write a for loop. Describe each of its components. Indicate the order in which they are executed / evaluated.
+
+for (i = 0; i < cookies.length; i++) {
+	console.log(cookies[i])
+}
+
+for: 				a for loop basically means for every cookie there is add +1 to a variable -> run the code written between the curly brackets and repeat the 					loop -> Until the variable has the same length as the length of a cookie array.
+
+i = 0;	 			Inside the parenthesis of a for loop you define a new var which holds the value zero. You can assign a value to a variable with the = sign. 
+
+i < cookies.length: Here we check if the variable i is smaller (<) than the cookies.length. In this case cookie is an array which holds different kind of values 
+					(different cookies). The function .length counts the items inside the array. (You can acces methods with the .dot sign) Let's say the cookie array consists of 5 items (cookies) So cookie.length will be equal to 4. (the index of an array starts at position 0)
+
+i++:				When the variable i is still smaller than the array index add +1 to the current value of the i var. (++ = +1)
+
+Example:			So the first time the for loop runs the var i = 0 -> checks the array length, which is 4 -> 0 is smaller than 4 -> the 						var i now has a value of 1. Then it will repeat the loop until the variable i is equal to the array.length      
+
+
+
+3. Functions
+ - 3a. Write a function. Describe each of its components and what each component does. Specify which of them are optional.
+
+function waterSplash (height) {
+
+}
+
+keyword function:	Defines a new function with the name waterSlapsh.
+(parameter):		Between the parenthesis you can insert a parameter, which is a local variable for the function itself. A parameter is 
+					optional. 
+{}:					Everything between the curly brackets will execute if the function is being called. 
+
+
+ - 3b. Write a function being called, showing the instruction execution order.
+
+ waterSplash("2.5")
+
+ This will call the function waterSplash and gives the parameter (height) a value of 2.5 (float)
+
+
+
+
+---
+### Part 2: Data Types - 10 minutes
+
+
+4. Primitive Data Types
+ - 4a. Give an example of an empty string and a non-empty string.
+ let myString = ""
+ let myString = "Wave"
+
+ - 4b. Give an example of a boolean.
+let niceWeather = false 
+
+ - 4c. Give an example of a Number.
+ let myNumber = 5
+
+
+
+5. Arrays
+ - 5a. Give an example of an empty array.
+let myArray = [] 
+
+ - 5b. Give an example of an array with three elements in it.
+let myFilledArray = ["pineapple", "apple", "rasberry"]
+
+ - 5c. How do you add another element to this array?
+ myFilledArray.add = "banana"
+
+ - 5d. How do you get the length of this array?
+myFilledArray.length
+
+ - 5e. Show how to iterate through the array using a loop.
+ for (i=0; i < myFilledArray.length; i++) {
+ 	console.log(I will show as many times as the length of my array!)
+ }
+
+
+ 
+6. Objects
+ - 6e. Give an example of an empty object.
+let myEmptyobj = {}
+
+ - 6b. Give an example of an object with three keys and three values.
+let myObj = {sky: "blue", grass: "green", sun: "yellow"}
+
+ - 6c. Give an example of an object with two keys and two functions as values.
+let myObj = {sky: function(), sun: function() }
+
+ - 6d. Describe one way of adding a key to an object.
+myObj.add ('wood')
+
+ - 6e. Describe the other way of adding a key to an object.
+myObj += "bush"
+
+ - 6f. Explain the difference between these two ways, and when it is appropriate to use each way.
+I'm not sure actually. 
+
+ - 6g. Describe how to iterate though an object using a loop.
+ for (var key in myObj) {
+
+ }
+
+ It will loop through the object for every variable in the object. 
+
+
+
+
+---
+### Part 3: Algorithms - 20 minutes
+
+7. What is an algorithm?
+It's a sort of code / pattern that's a solution for something. Like google algorithm pattern to index websites in the google search results.
+
+8. For the following problem, first write down how exactly to solve the problem in English. Once you are able to describe it in English, translate it into code.
+
+```js
+// Given an array of values, write a function that finds the index of where the value is located, and if nothing is found, returns -1.
+// Do not use the indexOf function.
+// example: for ['apple', 'orange', 'pineapple']
+	// 'orange' returns '1'
+	// 'durian' returns '-1'
+```
+1. first write an array.
+2. Write a function indexFinder.
+3. Use a loop to loop through the array.
+4. for every item in the array add an integer. 
+
+var myArray = ['apple', 'orange', 'pineapple']
+
+function indexFinder (nameOfFruit) {
+	for (i=0; i < myArray.length; i++) {
+		if (myArray[i] == nameOfFruit) {
+			return i; 
+		} else {
+			return "-1"
+		}
+	}
+} 
+
+
+
+9. Again, for the following problem, first write down how exactly to solve the problem in English. Once you are able to describe it in English, translate it into code.
+
+```js
+// Write a function that finds all the indexes of where the value is located and returns them in an array, and if nothing is found, returns -1
+// example: ['apple', 'orange', 'orange', 'pineapple']
+	// 'orange' returns [1,2]
+```
+
+

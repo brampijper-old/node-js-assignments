@@ -1,3 +1,4 @@
+'use strict'
 const fs = require ('fs')
 
 //helper functions
@@ -18,20 +19,19 @@ let prettyNr = ( number ) => {
 fs.readFile(__dirname + '/customer.json', 'UTF8', (err, data) => {
 	// Parse the file to a readable object
 	let parsedData = JSON.parse(data)
-	calcCompound(parsedData)
-
+	for (var i = 0; i < parsedData.length; i++) 
+		calcCompound(parsedData[i])
+	
 } )
 
 //Function to calculate compound interest from a customer object
-var calcCompound = (customer) => {
-	
-	// Set and amount prop and calculate total duration
+let calcCompound = (customer) => {
 		customer.pension.endamount = {
 		pessimistic: 	customer.finances.startcapital,
 		average: 		customer.finances.startcapital,
 		optimistic: 	customer.finances.startcapital
-	} 
-	customer.pension.duration = (customer.pension.age - customer.age)
+		}
+		customer.pension.duration = (customer.pension.age - customer.age)
 	
 	//Do the interest math
 	for (var i = customer.pension.duration - 1; i >= 0; i--) {
@@ -46,6 +46,7 @@ var calcCompound = (customer) => {
 		customer.pension.endamount.average 		*= customer.pension.interest.average
 		customer.pension.endamount.optimistic 	*= customer.pension.interest.optimistic
 	}
+
 	console.log("Welcome " 					+ customer.name + " to our advanced pension planner!")
 	console.log("You are starting with " 	+ customer.finances.startcapital + " and add a monthly amount of " + customer.finances.monthlyadd)
 	console.log("When you retire at age " 	+ customer.pension.age + " you will have the following:")
@@ -56,6 +57,5 @@ var calcCompound = (customer) => {
 	console.log("In a optimistic scenario: €" 	+ prettyNr( customer.pension.endamount.optimistic ) )
 }
 
-module.exports = {
-	test: calcCompound
-}
+module.exports = fs.readFile
+

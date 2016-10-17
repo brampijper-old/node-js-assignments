@@ -1,9 +1,10 @@
-{
-	"name": "Bram",
-	"age": 25, 
-	"finances": {
-		"startcapital": 1000,
-		"monthlyadd": 100
+[
+	{
+		"name": "Bram",
+		"age": 25, 
+		"finances": {
+			"startcapital": 1000,
+			"monthlyadd": 100
 	},
 	"pension": {
 		"age": 65,
@@ -13,4 +14,22 @@
 			"optimistic": 1.08 
 		} 
 	}
-}
+	},
+	{
+	"name": "Hans",
+	"age": 26, 
+		"finances": {
+			"startcapital": 2300,
+			"monthlyadd": 1200
+		},
+		"pension": {
+			"age": 65,
+			"interest": {
+				"pessimistic": 1.02,
+				"average": 1.04,
+				"optimistic": 1.08 
+			} 
+		}
+	}
+]
+

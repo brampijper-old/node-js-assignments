@@ -5,7 +5,7 @@ const bodyParser = require ('body-parser')
 
 app.set('view engine', 'pug')
 app.set('views', __dirname + '/views')
-app.use(bodyParser())
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/users', (req, res) => {
 	fs.readFile(__dirname + '/users.json', (error, data) => {

@@ -2,6 +2,16 @@ html
 	head
 	body
 		h1 Current users:
+		br
 		ol
 			each thing in data
 				li #{thing.firstName + ' ' + thing.lastName + ' ' + thing.emailadres}
+		br
+		br
+		a(href='addUser') Do you want to add an user?
+		br
+		br
+		a(href='form') Search users
+		br
+		br
+		a(href='users') Show all users in the database

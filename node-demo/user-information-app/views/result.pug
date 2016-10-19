@@ -1,7 +1,27 @@
 html
 	head
 	body
-		h1 this works 
+		h1 Result
+		p Yay! we found a match: 
+		br 
 		ol
-			each thing in result
-				li #{thing.firstName + ' ' + thing.lastName + ' ' + thing.emailadres}		
+			
+			li First Name: #{result.firstName}
+			br
+			li Last Name: #{result.lastName}
+			br
+			li Emailadres: #{result.emailadres}
+			br
+			br
+		a(href='addUser') add user
+		br
+		br
+		a(href='form') Search again
+		br
+		br
+		a(href='users') Show all users in the database
+
+
+			//- This didn't work because, I was looping through an object, whereas the object type is an array. 
+			//- each thing in result
+			//- 	li #{thing.firstName + ' ' + thing.lastName + ' ' + thing.emailadres}		

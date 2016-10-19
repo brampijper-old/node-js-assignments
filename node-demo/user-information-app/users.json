@@ -1,17 +1,1 @@
-[
-	{
-		"firstName"	: "Kitty",
-		"lastName"	: "Miauw",
-		"emailadres": "hellokitty@miauw.com"
-	},
-	{
-		"firstName"	: "Tim",
-		"lastName"	: "Rood",
-		"emailadres": "timrood@gmail.com"
-	},
-	{
-		"firstName"	: "Dog",
-		"lastName"	: "Blaf",
-		"emailadres": "dog@blaf.com"
-	}		
-]
+[{"firstName":"Kitty","lastName":"Miauw","emailadres":"hellokitty@miauw.com"},{"firstName":"Tim","lastName":"Rood","emailadres":"timrood@gmail.com"},{"firstName":"Dog","lastName":"Blaf","emailadres":"dog@blaf.com"},{"firstName":"Bram","lastName":"Pijper","emailadres":"brampijper@gmail.com"},{"firstName":"Flexi","lastName":"Cat","emailadres":"flexi@cat.com"},{"firstName":"Niko","lastName":"Pijper","emailadres":"niko@msn.com"},{"firstName":"Whale","lastName":"Dolfphin","emailadres":"whale@dolphin.com"},{"firstName":"Heiko","lastName":"Pijper","emailadres":"heiko@info.com"},{"firstName":"Kitty","lastName":"Kat","emailadres":"kitty@kat.com"},{"firstName":"Master","lastName":"Minion","emailadres":"master@minion.com"},{"firstName":"Master","lastName":"Minion","emailadres":"master@minion.com"},{"firstName":"Cloud","lastName":"Rain","emailadres":"cloud@rain.com"}]

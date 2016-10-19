@@ -1,0 +1,39 @@
+html
+	head
+	body
+		h1 Add a user
+		br
+		br
+		form(
+		action='/addUser'
+		method='post'
+		name='addUserForm'
+		)
+			p First Name:
+				input(
+				type='search'
+				name='firstName'
+				)
+			p Last Name:	
+				input(
+				type='search'
+				name='lastName'
+				)
+			p Emailadres:
+				input(
+				type='search'
+				name='emailadres'
+				)
+			input(
+			type='submit'
+			name='submit'
+			)
+		br
+		br
+		a(href='addUser') Add user
+		br
+		br
+		a(href='form') Search users
+		br
+		br
+		a(href='users') Show all users in the database

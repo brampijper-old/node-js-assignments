@@ -1,10 +1,12 @@
 html
 	head
 	body
+		h1 Search for a user
+		br
+		br
 		form(
-		action='/'
+		action='/add'
 		method='post'
-		name='myForm'
 		)
 			input(
 				type='search'
@@ -14,3 +16,9 @@ html
 				type='submit'
 				value='Sumbit'
 				)
+		br
+		br
+		a(href='addUser') Add a user
+		br
+		br
+		a(href='users') Show all users in the database

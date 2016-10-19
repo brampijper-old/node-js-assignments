@@ -1,9 +1,11 @@
 html
 	head
+		style
+			include style.css
 	body
 		h1 Current users:
 		br
-		ol
+		ul
 			each thing in data
 				li #{thing.firstName + ' ' + thing.lastName + ' ' + thing.emailadres}
 		br

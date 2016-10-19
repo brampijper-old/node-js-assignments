@@ -1,19 +1,17 @@
 html
 	head
+		style
+			include style.css
 	body
 		h1 Result
+		br
 		p Yay! we found a match: 
 		br 
-		ol
-			
-			li First Name: #{result.firstName}
-			br
-			li Last Name: #{result.lastName}
-			br
-			li Emailadres: #{result.emailadres}
-			br
-			br
-		a(href='addUser') add user
+		ul
+			each thing in result
+				li #{thing}
+				br
+		a(href='addUser') Add user
 		br
 		br
 		a(href='form') Search again

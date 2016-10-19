@@ -21,14 +21,16 @@ app.get('/form', (req, res) => {
 
 app.post ('/add', (req, res, inputName) => {
 	inputName = req.body.firstName
+	let userArray = []
 	fs.readFile(__dirname + '/users.json', (error, data) => {
 		if(error) throw error
 			let parsedData = JSON.parse(data)
 			for(var key in parsedData) {
 				if(parsedData[key].firstName == inputName || parsedData[key].lastName == inputName) {
-					res.render(__dirname + '/views/result.pug', {result: parsedData[key]})
-				} 
+					userArray.push('First Name: ' + parsedData[key].firstName, 'Last Name: ' + parsedData[key].lastName, 'Emailadres: ' + parsedData[key].emailadres)
+				}
 			}
+		res.render('result', {result: userArray}) 
 	})
 })
 
@@ -47,7 +49,7 @@ app.post('/addUser', (req,res) => {
 			fs.writeFile(__dirname + '/users.json', json, 'utf8', (error, data) => {
 				if(error) throw error
 					let test = JSON.parse(json)
-					res.render(__dirname + '/views/index.pug', {data: test})
+					res.redirect('users')
 			})
 	})
 })

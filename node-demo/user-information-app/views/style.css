@@ -1,0 +1,29 @@
+body {
+	background-color: #F5EDE3;
+	text-align:center;
+}
+
+h1 {
+	text-align: center;
+	width:100%;
+	color: #154890;
+}
+
+ul {
+	text-align:center;
+	list-style:none;
+	background-color:#CDBFAC;
+	width:50%;
+	margin: 0 auto;
+	padding:1%; 
+	margin-bottom:5%;
+}
+
+li {
+	text-align:center;
+	text-decoration: none
+}
+
+a {
+	margin-top:5%;
+}

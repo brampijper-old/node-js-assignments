@@ -1,5 +1,7 @@
 html
 	head
+		script(type="text/javascript" src='/jquery-3.1.1.min.js')
+		script(type="text/javascript" src='/main.js')
 		style
 			include style.css
 	body
@@ -7,20 +9,26 @@ html
 		br
 		br
 		form(
-		action='/add'
 		method='post'
+		id='searchForm'
+		action='/add'
+		autocomplete='off'
 		)
-			input(
-				type='search'
-				name='firstName'
+			input#inputContent(
+				type='text'
+				name='name'
+				list='users'
 				)
+			datalist#users
 			input(
-				type='submit'
-				value='Sumbit'
-				)
+			type='submit'
+			value='Search'
+			)
 		br
 		br
 		a(href='addUser') Add a user
 		br
 		br
 		a(href='users') Show all users in the database
+		br
+		br

@@ -3,6 +3,8 @@ const fs = require ('fs')
 const app = express()
 const bodyParser = require ('body-parser')
 
+app.use( express.static('static') )
+
 app.set('view engine', 'pug')
 app.set('views', __dirname + '/views')
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,6 +20,25 @@ app.get('/users', (req, res) => {
 app.get('/form', (req, res) => {
 	res.render('form')
 })
+
+app.post('/potato', (request, response) => {
+	let rb = request.body.input
+	let userArray = []
+
+	
+	fs.readFile(__dirname + '/users.json', (error, data) => {
+		if(error) throw error
+
+	let parsedData = JSON.parse(data)
+		for (var i = 0; i < parsedData.length; i++) {
+			if(parsedData[i].firstName.indexOf(rb) !== -1 || parsedData[i].lastName.indexOf(rb) !== -1) {
+				userArray.push(parsedData[i].firstName + " " + parsedData[i].lastName)
+			}
+		}
+		response.send(userArray) 
+	})
+})
+
 
 app.post ('/add', (req, res, inputName) => {
 	inputName = req.body.firstName

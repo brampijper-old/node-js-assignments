@@ -41,13 +41,14 @@ app.post('/potato', (request, response) => {
 
 
 app.post ('/add', (req, res, inputName) => {
-	inputName = req.body.firstName
+	inputName = req.body.name
+	
 	let userArray = []
 	fs.readFile(__dirname + '/users.json', (error, data) => {
 		if(error) throw error
 			let parsedData = JSON.parse(data)
 			for(var key in parsedData) {
-				if(parsedData[key].firstName == inputName || parsedData[key].lastName == inputName) {
+				if(parsedData[key].firstName == inputName || parsedData[key].lastName == inputName || parsedData[key].firstName + ' ' + parsedData[key].lastName == inputName) {
 					userArray.push('First Name: ' + parsedData[key].firstName, 'Last Name: ' + parsedData[key].lastName, 'Emailadres: ' + parsedData[key].emailadres)
 				}
 			}

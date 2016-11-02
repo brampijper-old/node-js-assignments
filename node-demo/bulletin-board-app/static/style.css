@@ -1,0 +1,57 @@
+html {
+	background-color:#607D8B;
+}
+
+h1 {
+	text-align: center;
+	color:#F5F5F5;
+
+}
+
+.nav-wrapper {
+	background-color:#EF5350;
+}
+
+footer.page-footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    background-color: yellow;
+}
+
+.resultTable {
+	margin: 0 auto;
+	text-align:center;
+}
+
+.resultTable li {
+	margin-top: 3%;
+	text-transform: bold;
+}
+
+hr {
+	width: 80%;
+	margin-top:3%;
+}
+
+.resultTable {
+	background-color:#EEEEEE;
+	width:80%;
+	opacity: 0.7;
+	padding-top:2%;
+	padding-bottom:5%;
+}
+
+form.container p {
+	color:#CFD8DC;
+}
+
+
+ body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }

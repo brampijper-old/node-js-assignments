@@ -1,26 +1,29 @@
 html
-	head
+	include includes/head.pug
 	body
+		br
 		h1 Write your lovely message
 		br
-		form(
+		br
+		form.container(
 		method='post'
 		id='storeMessage'
 		action='/add'
 		autocomplete='off'
 		)
-			p Title:
 			input(
 			type="text"
 			name="title"
+			id="Title"
 			)
+			label(for="Title") Title
 			br
 			br
 			p Write your message:
 			textarea(
 			name="message"
-			rows="15"
-			cols="80"
+			rows="50"
+			cols="10"
 			)
 			br
 			br
@@ -30,4 +33,6 @@ html
 			)
 		br
 		br
-		a(href='showMessages') Display Guestbook
+		br
+		br
+	include includes/footer.pug

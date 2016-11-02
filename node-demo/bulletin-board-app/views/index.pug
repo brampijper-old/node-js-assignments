@@ -11,28 +11,31 @@ html
 		action='/add'
 		autocomplete='off'
 		)
-			input(
-			type="text"
-			name="title"
-			id="Title"
-			)
-			label(for="Title") Title
+			div.input-field.col.s6
+				input(
+				type="text"
+				name="title"
+				placeholder="Write your title"
+				id="title"
+				)
+				label(for="title") Title
 			br
 			br
-			p Write your message:
-			textarea(
-			name="message"
-			rows="50"
-			cols="10"
-			)
+			div.input-field.col.s12
+				textarea#textarea1.materialize-textarea(
+				name="message"
+				rows="50"
+				cols="10"
+				placeholder="Write your message"
+				)
+				label(for="message") Message
 			br
 			br
-			input(
-			type='submit'
-			value='Send'
-			)
-		br
-		br
-		br
-		br
+			button.btn.waves-effect.waves-light(
+			type="submit"
+			name="action"
+			) send
+			br
+			br
+			br
 	include includes/footer.pug

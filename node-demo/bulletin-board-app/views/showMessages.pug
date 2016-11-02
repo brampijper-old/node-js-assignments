@@ -1,0 +1,15 @@
+html
+	head
+	body
+		h1 Display all the kind messages
+		br
+		br
+		ul
+			each thing in result
+				li Title: #{thing.title}
+				li Message: #{thing.body}
+				br
+		br
+		br
+		br
+		a(href='index') Write guestbook message

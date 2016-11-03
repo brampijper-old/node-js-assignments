@@ -13,8 +13,6 @@ h1 {
 }
 
 footer.page-footer {
-    margin-top: 20px;
-    padding-top: 20px;
     background-color: yellow;
 }
 
@@ -54,4 +52,16 @@ form.container p {
 
   main {
     flex: 1 0 auto;
+  }
+
+  input, select, textarea {
+  	color:#B8CED1;
+  }
+
+  textarea:focus, input:focus {
+  	color:#B8CED1;
+  }
+
+  h5 {
+  	margin: 0 auto;
   }

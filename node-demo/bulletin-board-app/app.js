@@ -56,6 +56,7 @@ app.post('/add', (req, res) => {
 		pg.end();
 		})
 	})
+	res.redirect('/showMessages')
 })
 
 //Start webserver on port 8000

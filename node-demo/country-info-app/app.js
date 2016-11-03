@@ -11,8 +11,3 @@ helper(filepath, function (parsedFile) {
 		}
 	}
 })
-
-
-
-
-

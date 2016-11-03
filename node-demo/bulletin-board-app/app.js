@@ -52,11 +52,11 @@ app.post('/add', (req, res) => {
 				throw err;
 			} 
 			console.log("Yup it worked")
-		done();
-		pg.end();
+			res.redirect('/showMessages')
+			done();
+			pg.end();
 		})
 	})
-	res.redirect('/showMessages')
 })
 
 //Start webserver on port 8000

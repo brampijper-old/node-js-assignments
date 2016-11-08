@@ -1,0 +1,21 @@
+html
+	head
+	body
+		h1 Register!! Yay
+
+		form(action='/create' method='post' autocomplete='off')
+			label Username
+			input#username(name='username' required)
+			br
+			br
+			label Emailadres
+			input#emailadres(name='email' required)
+			br
+			br
+			label Password
+			input#password(name='password' required)
+			br
+			br
+			input(type='submit' value='register' id='submit')
+			br
+			br

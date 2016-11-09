@@ -20,7 +20,10 @@ app.use('/resources', express.static(__dirname + '/resources'))
 app.use(bodyParser.urlencoded({extended: true})); 
 
 app.use(cookieParser())
-app.use(session({secret: 'i dont know what this is'}))
+app.use(session({
+	secret: 'My ultra safe secret sentence',
+	cookie: {maxAge: 365 * 24 * 60 * 60 * 1000}
+}))
 
 //set the pug engine and the view folder with the .pug files. 
 app.set('view engine', 'pug')
@@ -51,18 +54,36 @@ app.get('/ping', (req, res) => {
 
 //Log-in page
 app.get('/', (req, res) => {
-	res.render('index')
+	if(req.session.email) {
+		res.redirect('/profile')
+	}
+	else {
+		res.render('index')
+	}
 })
 
 //register page
 app.get('/register', (req, res) => {
-	res.render('register')
+	if(req.session.email) {
+		res.redirect('/profile')
+	}
+	else {
+		res.render('register')
+	}	
 })
 
+
+//if the user is logged in show their profile
 app.get('/profile', (req, res) => {
-	res.render('profile', {
-		userName: req.session.userName
-	})
+	if(req.session.email) {
+		res.render('profile', {
+			userName: req.session.username
+		})
+	}
+	else {
+		res.redirect('/')
+	}
+
 })
 
 //adds new user to the database
@@ -89,13 +110,24 @@ app.post('/login', (req, res) => {
 		}
 	}).then(function (user) {
 		if(user !== null && req.body.password === user.password) {
-			req.session.userName = user.username
+			req.session.email = req.body.email
+			req.session.username = user.username 
 			console.log('succesfully logged in')
 			res.redirect('/profile')
 		} else {
 			console.log('wrong log-in credentials')
 			res.redirect('/')
 		}
+	})
+})
+
+//The users logs out
+app.get('/logout', (req, res) => {
+	req.session.destroy(function(err) {
+		if(err) console.log(err)
+			else { 
+				res.redirect('/')
+			}
 	})
 })
 

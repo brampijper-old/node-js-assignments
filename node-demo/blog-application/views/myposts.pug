@@ -2,3 +2,13 @@ html
 	head
 	body
 		h1 All my personal posts!!
+		br
+		br
+		ul
+			each item in data
+				li User: #{item.user.username}
+				li Item: #{item.note}
+				br
+		br
+		br
+		a(href='profile') Profile

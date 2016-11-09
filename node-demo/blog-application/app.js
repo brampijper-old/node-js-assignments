@@ -115,7 +115,7 @@ app.post('/login', (req, res) => {
 	}).then( (user) => {
 		if(user !== null && req.body.password === user.password) {
 			req.session.email 		= req.body.email
-			req.session.username 	= user.username 
+			req.session.username 	= user.username
 			console.log('succesfully logged in')
 			res.redirect('/profile')
 		} else {
@@ -169,21 +169,54 @@ app.post('/upload-post', (req, res) => {
 	}
 })
 
+//select all messages for logged in user from db.
+//store them in a var > pass to pug
+//loop over them in the pug file.
 app.get('/my-posts', (req, res) => {
 	if(req.session.email) {
-		//select all messages for logged in user from db.
-		//store them in a var > pass to pug
-		//loop over them in the pug file. 
-
-		res.render('myposts')
-
+		User.findOne({
+			where:{
+				email: req.session.email
+			}
+		}).then(user => {
+			Message.findAll({
+				attributes: ['note'],
+				where: {
+					userId: user.id
+				},
+				include: [{
+					model: User,
+					attributes: ['username']
+				}]				
+			}).then (result => {
+				res.render('myposts', {data: result})
+				//console.log(result[0].user.username)
+			})
+		}) 
 	}
 	else {
 		res.redirect('/')
 	}	
 })
 
-
+app.get('/all-posts', (req, res) => {
+	if(req.session.email) {
+		Message.findAll({
+			include: [{
+				model: User,
+				attributes: ['username']
+			}]
+		}).then(result => {
+			res.render('all-posts', {data: result})
+			for (var i = result.length - 1; i >= 0; i--) {
+				console.log(result[i].user.username)
+			}
+		})
+	}
+	else {
+		res.redirect('/')
+	}
+})
 
 //Start the web-server on port 8000
 app.listen(8000, () => {

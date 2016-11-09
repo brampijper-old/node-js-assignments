@@ -1,0 +1,14 @@
+html
+	head
+	body
+		h1 Everyone's Posts!!
+		br
+		br
+		each item in data
+			ul
+				if item.user
+					li User #{item.user.username}
+				else
+					li User: Anonymous
+				li Item: #{item.note}
+		a(href='profile') Profile

@@ -37,15 +37,20 @@ let User = db.define('user', {
 })
 
 let Message = db.define('message', {
-	note: 		sequelize.STRING,
-	user_id: 	sequelize.INTEGER
+	note: 		sequelize.STRING
 })
 
 let Comment = db.define('comment', {
-	opinion: 	sequelize.STRING,
-	user_id: 	sequelize.INTEGER,
-	message_id: sequelize.INTEGER
+	opinion: 	sequelize.STRING
 })
+
+//Define relations
+User.hasMany(Message)
+User.hasMany(Comment)
+Message.hasMany(Comment)
+Message.belongsTo(User)
+Comment.belongsTo(User)
+Comment.belongsTo(Message)
 
 //test if the webserver is working
 app.get('/ping', (req, res) => {
@@ -83,16 +88,15 @@ app.get('/profile', (req, res) => {
 	else {
 		res.redirect('/')
 	}
-
 })
 
 //adds new user to the database
 app.post('/create', (req, res) => {
 	if (req.body.username && req.body.email && req.body.password !== 0) {
 		User.create({
-			username: req.body.username,
-			email: req.body.email, 
-			password: req.body.password
+			username: 	req.body.username,
+			email: 		req.body.email, 
+			password: 	req.body.password
 		}).then(function () {
 			db.sync().then(function() {
 				console.log('User Added')
@@ -108,10 +112,10 @@ app.post('/login', (req, res) => {
 		where: {
 			email: req.body.email
 		}
-	}).then(function (user) {
+	}).then( (user) => {
 		if(user !== null && req.body.password === user.password) {
-			req.session.email = req.body.email
-			req.session.username = user.username 
+			req.session.email 		= req.body.email
+			req.session.username 	= user.username 
 			console.log('succesfully logged in')
 			res.redirect('/profile')
 		} else {
@@ -123,13 +127,63 @@ app.post('/login', (req, res) => {
 
 //The users logs out
 app.get('/logout', (req, res) => {
-	req.session.destroy(function(err) {
+	req.session.destroy( (err) => {
 		if(err) console.log(err)
 			else { 
 				res.redirect('/')
 			}
 	})
 })
+
+app.get('/create-post', (req, res) => {
+	if(req.session.email) {
+		res.render('create-post')
+
+	}
+	else {
+		res.redirect('/')
+	}
+})
+
+app.post('/upload-post', (req, res) => {
+	if(req.session.email) {
+		if(req.body.message.length !== 0) {
+			User.findOne({
+				where: {
+					email: req.session.email
+				}
+			}).then( (user) => {
+				user.createMessage({
+					note: req.body.message
+				})
+			}).then( ( ) => {
+				db.sync().then( () => {
+					console.log('Message added to the db')
+					res.redirect('profile')
+				})
+			})	
+		}		
+	}
+	else {
+		res.redirect('/')
+	}
+})
+
+app.get('/my-posts', (req, res) => {
+	if(req.session.email) {
+		//select all messages for logged in user from db.
+		//store them in a var > pass to pug
+		//loop over them in the pug file. 
+
+		res.render('myposts')
+
+	}
+	else {
+		res.redirect('/')
+	}	
+})
+
+
 
 //Start the web-server on port 8000
 app.listen(8000, () => {

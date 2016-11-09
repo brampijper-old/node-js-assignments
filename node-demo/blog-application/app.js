@@ -135,6 +135,7 @@ app.get('/logout', (req, res) => {
 	})
 })
 
+//displays the create post page
 app.get('/create-post', (req, res) => {
 	if(req.session.email) {
 		res.render('create-post')
@@ -145,6 +146,7 @@ app.get('/create-post', (req, res) => {
 	}
 })
 
+//stores the the message in the db
 app.post('/upload-post', (req, res) => {
 	if(req.session.email) {
 		if(req.body.message.length !== 0) {
@@ -169,9 +171,7 @@ app.post('/upload-post', (req, res) => {
 	}
 })
 
-//select all messages for logged in user from db.
-//store them in a var > pass to pug
-//loop over them in the pug file.
+//Only displays the messages that the logged-in user created.
 app.get('/my-posts', (req, res) => {
 	if(req.session.email) {
 		User.findOne({
@@ -190,7 +190,6 @@ app.get('/my-posts', (req, res) => {
 				}]				
 			}).then (result => {
 				res.render('myposts', {data: result})
-				//console.log(result[0].user.username)
 			})
 		}) 
 	}
@@ -199,6 +198,7 @@ app.get('/my-posts', (req, res) => {
 	}	
 })
 
+//Displays all the messages including the user names. 
 app.get('/all-posts', (req, res) => {
 	if(req.session.email) {
 		Message.findAll({

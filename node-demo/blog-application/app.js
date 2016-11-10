@@ -22,7 +22,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser())
 app.use(session({
 	secret: 'My ultra safe secret sentence',
-	cookie: {maxAge: 365 * 24 * 60 * 60 * 1000}
+	cookie: {maxAge: 365 * 24 * 60 * 60 * 1000},
+	resave: true,
+	saveUninitialized: false
 }))
 
 //set the pug engine and the view folder with the .pug files. 
@@ -63,7 +65,9 @@ app.get('/', (req, res) => {
 		res.redirect('/profile')
 	}
 	else {
-		res.render('index')
+		res.render('index', {
+			message: req.query.message
+		})
 	}
 })
 
@@ -86,7 +90,7 @@ app.get('/profile', (req, res) => {
 		})
 	}
 	else {
-		res.redirect('/')
+		res.redirect('/?message' + encodeURIComponent("Please log-in"))
 	}
 })
 
@@ -100,7 +104,7 @@ app.post('/create', (req, res) => {
 		}).then(function () {
 			db.sync().then(function() {
 				console.log('User Added')
-				res.redirect('/')
+				res.redirect('/?message' + encodeURIComponent("Please log-in"))
 			})
 		})
 	} 
@@ -119,8 +123,7 @@ app.post('/login', (req, res) => {
 			console.log('succesfully logged in')
 			res.redirect('/profile')
 		} else {
-			console.log('wrong log-in credentials')
-			res.redirect('/')
+			res.redirect('/?message=' + encodeURIComponent("Invalid email or password."))
 		}
 	})
 })
@@ -130,7 +133,7 @@ app.get('/logout', (req, res) => {
 	req.session.destroy( (err) => {
 		if(err) console.log(err)
 			else { 
-				res.redirect('/')
+				res.redirect('/?message=' + encodeURIComponent("Successfully logged out."))
 			}
 	})
 })
@@ -142,7 +145,7 @@ app.get('/create-post', (req, res) => {
 
 	}
 	else {
-		res.redirect('/')
+		res.redirect('/?message' + encodeURIComponent("Please log-in"))
 	}
 })
 
@@ -194,7 +197,7 @@ app.get('/my-posts', (req, res) => {
 		}) 
 	}
 	else {
-		res.redirect('/')
+		res.redirect('/?message' + encodeURIComponent("Please log-in"))
 	}	
 })
 
@@ -208,15 +211,49 @@ app.get('/all-posts', (req, res) => {
 			}]
 		}).then(result => {
 			res.render('all-posts', {data: result})
-			for (var i = result.length - 1; i >= 0; i--) {
-				console.log(result[i].user.username)
-			}
 		})
 	}
 	else {
-		res.redirect('/')
+		res.redirect('/?message' + encodeURIComponent("Please log-in"))
 	}
 })
+
+app.post('/comment', (req, res) => {
+	if(req.session.email) {
+		if(req.body.comment.length !== 0) {
+			User.findOne({
+				where: {
+					email: req.session.email
+				}
+			}).then(user => {
+				user.createComment({
+					opinion: req.body.comment
+				})
+			}).then( () => {
+				db.sync().then( () => {
+					console.log('comment added')
+				})
+			})
+		}
+	}
+	else {
+		res.redirect('/?message' + encodeURIComponent("Please log-in"))
+	}
+})
+
+// db.sync({force: true}).then( () => {
+// 	User.create({
+// 		username: 'Cat',
+// 		email: 'cat@miauw.com',
+// 		password: 'pur' 
+// 	}).then( (user) => {
+// 		Message.create({
+// 			note: 'This blogging app works like crazy shit'
+// 		}).then( (message) => {
+// 			opinion: 'No, this is amazing'
+// 		})
+// 	})
+// })
 
 //Start the web-server on port 8000
 app.listen(8000, () => {

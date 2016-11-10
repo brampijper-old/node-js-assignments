@@ -8,9 +8,18 @@ html
 			ul
 				if item.user
 					li User #{item.user.username}
+					li Item: #{item.note}
+						br
+						form(action='/comment' method='post')
+							input(name='comment')
+							input(type='submit' value='comment')
 				else
 					li User: Anonymous
-				li Item: #{item.note}
+					li Item: #{item.note}
+						br
+						form(action='/comment' method='post')
+							input(name='comment')
+							input(type='submit' value='comment')
 				//- form(autocomplete='off')
 				//- label Comment:
 				//- input(name='comment')

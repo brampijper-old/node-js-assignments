@@ -3,13 +3,13 @@ html
 	body
 		h1 Log-in Page
 
-		form(action='/login' method='post' autocomplete='off')
+		form(action='/login' method='post')
 			label Emailadres
 			input#emailadres(name='email' required)
 			br
 			br
 			label Password
-			input#password(name='password' required)
+			input#password(name='password' type='password' required)
 			br
 			br
 			input(type='submit' value='login' id='submit')

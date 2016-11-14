@@ -123,7 +123,7 @@ app.post('/login', (req, res) => {
 			console.log('succesfully logged in')
 			res.redirect('/profile')
 		} else {
-			res.redirect('/?message=' + encodeURIComponent("Invalid email or password."))
+			res.redirect('/?message=' + encodeURIComponent('Invalid email or password.'))
 		}
 	})
 })
@@ -133,7 +133,7 @@ app.get('/logout', (req, res) => {
 	req.session.destroy( (err) => {
 		if(err) console.log(err)
 			else { 
-				res.redirect('/?message=' + encodeURIComponent("Successfully logged out."))
+				res.redirect('/?message=' + encodeURIComponent('Successfully logged out.'))
 			}
 	})
 })
@@ -145,7 +145,7 @@ app.get('/create-post', (req, res) => {
 
 	}
 	else {
-		res.redirect('/?message' + encodeURIComponent("Please log-in"))
+		res.redirect('/?message' + encodeURIComponent('Please log-in'))
 	}
 })
 
@@ -197,7 +197,7 @@ app.get('/my-posts', (req, res) => {
 		}) 
 	}
 	else {
-		res.redirect('/?message' + encodeURIComponent("Please log-in"))
+		res.redirect('/?message' + encodeURIComponent('Please log-in'))
 	}	
 })
 
@@ -214,30 +214,74 @@ app.get('/all-posts', (req, res) => {
 		})
 	}
 	else {
-		res.redirect('/?message' + encodeURIComponent("Please log-in"))
+		res.redirect('/?message' + encodeURIComponent('Please log-in'))
+	}
+})
+
+app.post('/view', (req, res) => {
+	if(req.session.email) {
+		
+		res.redirect('selected-post?id')
+	}
+	else {
+		res.redirect('/?message' + encodeURIComponent('Please log-in'))
+	}
+})
+
+app.get('/selected-post', (req, res) => {
+	if(req.session.email) {
+		Message.findAll({
+			where: {
+				id: req.query.id 
+			},
+			include: [{
+				model: User,
+				attributes: ['username']
+			}]
+		}).then(result => {
+			res.render('selected-post', {data: result})
+		})
+	}
+	else {
+		res.redirect('/?message' + encodeURIComponent('Please log-in again'))
 	}
 })
 
 app.post('/comment', (req, res) => {
 	if(req.session.email) {
+		console.log('yesshhh')
 		if(req.body.comment.length !== 0) {
-			User.findOne({
+			User.findOne ({
 				where: {
 					email: req.session.email
 				}
 			}).then(user => {
 				user.createComment({
-					opinion: req.body.comment
+					opnion: req.body.comment
 				})
 			}).then( () => {
 				db.sync().then( () => {
-					console.log('comment added')
+					res.redirect('selected-post')
+					//link + the message id -> so it returns to the same page. 
 				})
 			})
+
+			// User.findOne({
+			// 	where: {
+			// 		email: req.session.email
+			// 	}
+			// }).then(user => {
+			// 	user.createComment({
+			// 		opinion: req.body.comment
+			// 		//commentId: message.id 
+			// 		//link the message id with the comment id, cause a message could have many comments. 
+			// 		//How do I give the current message id to the comment ID?
+			// 	})
+			//})
 		}
 	}
 	else {
-		res.redirect('/?message' + encodeURIComponent("Please log-in"))
+		res.redirect('/?message' + encodeURIComponent('Please log-in'))
 	}
 })
 
@@ -259,3 +303,6 @@ app.post('/comment', (req, res) => {
 app.listen(8000, () => {
 	console.log('Yaay, web-server is running!')
 })
+
+
+//npm bcript -node.js 

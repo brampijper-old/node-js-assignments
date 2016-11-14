@@ -1,0 +1,13 @@
+html
+	head
+	body
+		h1 The selected Post
+		br
+		br
+		each item in data
+			ul
+				li User: #{item.user.username}
+				li Says: #{item.note}
+					form(action='/comment' method='post')
+						input(name='comment')
+						input(type='submit' value='Comment' id='comment')

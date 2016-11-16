@@ -5,6 +5,7 @@ const bodyParser 	= require ('body-parser')
 const session		= require ('express-session')
 const promise 		= require ('promise')
 const cookieParser 	= require ('cookie-parser')
+const bcrypt		= require ('bcrypt-nodejs')
 const app 			= express()
 
 //connecting string to the database.
@@ -97,16 +98,19 @@ app.get('/profile', (req, res) => {
 //adds new user to the database
 app.post('/create', (req, res) => {
 	if (req.body.username && req.body.email && req.body.password !== 0) {
-		User.create({
-			username: 	req.body.username,
-			email: 		req.body.email, 
-			password: 	req.body.password
-		}).then(function () {
-			db.sync().then(function() {
-				console.log('User Added')
-				res.redirect('/?message' + encodeURIComponent("Please log-in"))
+			bcrypt.hash(req.body.password, null, null, function(err, hash) {
+				console.log(hash)
+				User.create({
+					username: req.body.username,
+					email: req.body.email,
+					password: hash
+				}).then(function () {
+					db.sync().then(function() {
+					console.log('User Added')
+					res.redirect('/?message' + encodeURIComponent("Please log-in"))
+					})
+				})
 			})
-		})
 	} 
 })
 
@@ -117,14 +121,25 @@ app.post('/login', (req, res) => {
 			email: req.body.email
 		}
 	}).then( (user) => {
-		if(user !== null && req.body.password === user.password) {
-			req.session.email 		= req.body.email
-			req.session.username 	= user.username
-			console.log('succesfully logged in')
-			res.redirect('/profile')
-		} else {
-			res.redirect('/?message=' + encodeURIComponent('Invalid email or password.'))
-		}
+		bcrypt.compare(req.body.password, user.password, function(err, result) {
+			if(result) {
+				req.session.email 		= req.body.email
+				req.session.username 	= user.username
+				console.log('succesfully logged in')
+				res.redirect('/profile')
+			} else {
+				res.redirect('/?message=' + encodeURIComponent('Invalid email or password.'))
+			}
+		})
+
+		// if(user !== null && req.body.password === user.password) {
+		// 	req.session.email 		= req.body.email
+		// 	req.session.username 	= user.username
+		// 	console.log('succesfully logged in')
+		// 	res.redirect('/profile')
+		// } else {
+		// 	res.redirect('/?message=' + encodeURIComponent('Invalid email or password.'))
+		// }
 	})
 })
 
@@ -234,12 +249,14 @@ app.get('/selected-post', (req, res) => {
 			where: {
 				id: req.query.id 
 			},
-			include: [{
-				model: User,
-				attributes: ['username']
-			}]
-		}).then(result => {
-			res.render('selected-post', {data: result})
+			include: 
+				[{model: User}, 
+			{ model: Comment,
+			include: [User]
+		}]
+		}).then(message => {
+			console.log(message)
+			res.render('selected-post', {data: message})
 		})
 	}
 	else {
@@ -249,35 +266,21 @@ app.get('/selected-post', (req, res) => {
 
 app.post('/comment', (req, res) => {
 	if(req.session.email) {
-		console.log('yesshhh')
+
+
 		if(req.body.comment.length !== 0) {
 			User.findOne ({
 				where: {
 					email: req.session.email
-				}
+				} 
 			}).then(user => {
 				user.createComment({
-					opnion: req.body.comment
+					opinion: req.body.comment,
+					messageId: req.query.id
 				})
 			}).then( () => {
-				db.sync().then( () => {
-					res.redirect('selected-post')
-					//link + the message id -> so it returns to the same page. 
-				})
-			})
-
-			// User.findOne({
-			// 	where: {
-			// 		email: req.session.email
-			// 	}
-			// }).then(user => {
-			// 	user.createComment({
-			// 		opinion: req.body.comment
-			// 		//commentId: message.id 
-			// 		//link the message id with the comment id, cause a message could have many comments. 
-			// 		//How do I give the current message id to the comment ID?
-			// 	})
-			//})
+					res.redirect('/selected-post?id=' + req.query.id) 
+				}) 
 		}
 	}
 	else {
@@ -285,19 +288,81 @@ app.post('/comment', (req, res) => {
 	}
 })
 
-// db.sync({force: true}).then( () => {
+// app.get('/yay', (req, res) => {
+// 	if(req.session.email) {
+// 		Comment.findAll({
+// 			where: {
+// 				messageId: req.query.id
+// 			},
+// 			include: [User, Message]
+// 		}).then (comment => {
+// 			console.log(comment)
+// 			res.render('yay', {data: comment})
+// 		})
+// 	}
+// 	else{
+// 		res.redirect('/?message' + encodeURIComponent('Please log-in again'))		
+// 	}
+// })
+
+db.sync({force: true}).then( () => {
 // 	User.create({
 // 		username: 'Cat',
 // 		email: 'cat@miauw.com',
 // 		password: 'pur' 
 // 	}).then( (user) => {
-// 		Message.create({
+// 		user.createMessage({
 // 			note: 'This blogging app works like crazy shit'
-// 		}).then( (message) => {
-// 			opinion: 'No, this is amazing'
+// 		}).then( (user) => {
+// 			user.createComment({
+// 				opinion: 'No, this is amaaaaazing',
+// 				userId: '1'
+// 			})
+// 		}).then( () => {
+// 			Message.findOne({
+// 				where: {
+// 					id: '2'
+// 				}
+// 			}).then( (message) => {
+// 				message.createComment({
+// 					opinion: 'No, I just want sleep duhh',
+// 					userId: '2',
+// 					include: [{
+// 						model: User,
+// 						username: 'Lion-Man'
+// 					}]
+// 				})
+// 			} )
 // 		})
 // 	})
-// })
+// }).then( ( ) => {
+// 		User.create({
+// 		username: 'Lion-Man',
+// 		email: 'lion@roar.com',
+// 		password: 'roar' 
+// 	}).then( (user) => {
+// 		user.createMessage({
+// 			note: 'I want to jump around in the nature'
+// 		})
+// 		// .then( (message) => {
+// 		// 	message.createComment({
+// 		// 		opinion: 'I hate you cat',
+// 		// 		userId: '2'
+// 		// 	})
+// 		// }).then( () => {
+// 		// 	Message.findOne({
+// 		// 		where: {
+// 		// 			id: '1'
+// 		// 		}
+// 		// 	}).then( (message) => {
+// 		// 		message.createComment({
+// 		// 			opinion: 'This is going to work perfectly',
+// 		// 			userId: '2'
+// 		// 		})
+// 		// 	})
+// 		// })
+// 	})
+})
 
 //Start the web-server on port 8000
 app.listen(8000, () => {
@@ -306,3 +371,51 @@ app.listen(8000, () => {
 
 
 //npm bcript -node.js 
+
+
+// User.findOne({
+// 	where: {
+// 		email: req.session.email
+// 	}
+// }).then(user => {
+// 	user.createComment({
+// 		opinion: req.body.comment
+// 		//commentId: message.id 
+// 		//link the message id with the comment id, cause a message could have many comments. 
+// 		//How do I give the current message id to the comment ID?
+// 	})
+//})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

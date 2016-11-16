@@ -4,10 +4,34 @@ html
 		h1 The selected Post
 		br
 		br
-		each item in data
+		each message in data
 			ul
-				li User: #{item.user.username}
-				li Says: #{item.note}
-					form(action='/comment' method='post')
-						input(name='comment')
-						input(type='submit' value='Comment' id='comment')
+				li User: #{message.user.username}
+				li Says: #{message.note}
+				//- li Comments: #{message.comment.opinion}
+				form( method='post' action='/comment?id=' + message.id)
+					textarea(rows='2' name='comment')
+					input(type='submit' value='Comment' id='comment') 
+
+			if message.comments
+				each comment in message.comments
+					li User: #{comment.user.username}
+					li Comment: #{comment.opinion}
+			else
+				li No comments yet!
+		br
+		br
+		a(href='profile') Profile
+
+		
+		//- the data structure 
+			data []
+				messages {}
+					note STR
+					user {}
+						username STR
+					comments []
+						comment {}
+							opinion STR
+							user {}
+								username STR

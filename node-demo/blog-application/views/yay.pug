@@ -1,0 +1,13 @@
+html
+	head
+	body
+		h1 Yay
+		br
+		br
+		each comment in data
+			ul
+				li The user: #{comment.user.username}
+				li The comment: #{comment.opinion}
+				br
+				br
+				li the message: #{comment.message.note}

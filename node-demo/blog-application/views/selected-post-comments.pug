@@ -1,0 +1,14 @@
+html
+	head
+	body
+		h1 The selected Post
+		br
+		br
+		each message in data
+			ul
+				li User: #{message.user}
+				li Message: #{message}
+				br
+				br
+				li Comment: #{message.comment.opinion}
+				li User: #{message.comment.opinion.user.username}

@@ -32,6 +32,10 @@ app.use(session({
 app.set('view engine', 'pug')
 app.set('views', __dirname + '/views')
 
+//Set the resources folder as the default so it can read
+//Everything in there. 
+//user the pug with headers so i can include the footer and header in every pug file. 
+
 //Define the database structure
 let User = db.define('user', {
 	username: 	sequelize.STRING,
@@ -131,15 +135,6 @@ app.post('/login', (req, res) => {
 				res.redirect('/?message=' + encodeURIComponent('Invalid email or password.'))
 			}
 		})
-
-		// if(user !== null && req.body.password === user.password) {
-		// 	req.session.email 		= req.body.email
-		// 	req.session.username 	= user.username
-		// 	console.log('succesfully logged in')
-		// 	res.redirect('/profile')
-		// } else {
-		// 	res.redirect('/?message=' + encodeURIComponent('Invalid email or password.'))
-		// }
 	})
 })
 
@@ -305,7 +300,7 @@ app.post('/comment', (req, res) => {
 // 	}
 // })
 
-db.sync({force: true}).then( () => {
+db.sync({force: false}).then( () => {
 // 	User.create({
 // 		username: 'Cat',
 // 		email: 'cat@miauw.com',

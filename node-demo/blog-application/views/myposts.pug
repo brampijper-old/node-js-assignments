@@ -9,6 +9,6 @@ html
 		div.containerpost.text-center
 			each item in data
 				ul
-					li User: #{item.user.username}
-					li Item: #{item.note}
+					li #{item.user.username} Say's:
+					li #{item.note}
 		include includes/footer.pug

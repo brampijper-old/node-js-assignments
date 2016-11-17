@@ -1,19 +1,23 @@
 html
+	include includes/head.pug
 	head
 	body
-		h1= 'Welcome ' + userName
-		br
-		br
-		a(href='create-post' action='/create-post' method='get') New post!
-		br
-		br
-		a(href='my-posts' action='/my-posts' method='get') View my personal posts
-		br
-		br
-		a(href='all-posts') View all posts
-		br
-		br
-		a(href='search') Search
-		br
-		br
-		a(href='logout') Logout
+		div.header
+			div.row
+				div.large-12.columns
+					h2= 'Welcome ' + userName + ' :) '		
+		div.container.text-center
+			br
+			br
+			a.button(href='create-post' action='/create-post' method='get') New post!
+			br
+			br
+			a.button(href='my-posts' action='/my-posts' method='get') View my personal posts
+			br
+			br
+			a.button(href='all-posts') View all posts
+			br
+			br
+			br
+			br
+		include includes/footer.pug

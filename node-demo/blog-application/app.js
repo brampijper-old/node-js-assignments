@@ -36,6 +36,8 @@ app.set('views', __dirname + '/views')
 //Everything in there. 
 //user the pug with headers so i can include the footer and header in every pug file. 
 
+
+
 //Define the database structure
 let User = db.define('user', {
 	username: 	sequelize.STRING,
@@ -140,13 +142,19 @@ app.post('/login', (req, res) => {
 
 //The users logs out
 app.get('/logout', (req, res) => {
-	req.session.destroy( (err) => {
-		if(err) console.log(err)
+	if(!req.session.email) {
+		res.redirect('/?message=' + encodeURIComponent('Please log-in first;)'))		
+	}
+	else if(req.session.email) {
+		req.session.destroy( (err) => {
+			if(err) console.log(err)
 			else { 
 				res.redirect('/?message=' + encodeURIComponent('Successfully logged out.'))
 			}
-	})
+		})
+	}
 })
+
 
 //displays the create post page
 app.get('/create-post', (req, res) => {
@@ -273,6 +281,9 @@ app.post('/comment', (req, res) => {
 					opinion: req.body.comment,
 					messageId: req.query.id
 				})
+				setTimeout(function() {
+					console.log('utterly useless')
+				},100)
 			}).then( () => {
 					res.redirect('/selected-post?id=' + req.query.id) 
 				}) 

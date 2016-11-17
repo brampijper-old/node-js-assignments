@@ -1,13 +1,17 @@
 html
+	include includes/head.pug
 	head
 	body
-		h1 Create a post!!
-		br
+	div.header
+		div.row
+			div.large-12.columns
+				h2 What do you want to say? 
+	br
+	div.container.text-center
 		form(action='/upload-post' method='post' autocomplete='off')
-			textarea(rows='10' name='message')
+			textarea(rows='10' name='message' required)
+			br
+			input.button(type='submit' value='Share message' id='submit')
 			br
 			br
-			input(type='submit' value='Share message' id='submit')
-			br
-			br
-			a(href='profile') Profile
+		include includes/footer.pug

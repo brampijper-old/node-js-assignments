@@ -1,14 +1,19 @@
 html
+	include includes/head.pug
 	head
 	body
-		h1 Everyone's Posts!!
+	div.header
+			div.row
+				div.large-12.columns
+					h2 Everyone's feelings
+	div.containerpost.text-center
 		br
 		br
 		each item in data
 			ul
-				if item.user
-					li User #{item.user.username}
-					li Item: #{item.note}
-					a(href='selected-post?id=' + item.id) View	
-		br
-		a(href='profile') Profile
+				if item.user	
+					li #{item.user.username} Say's:
+					li #{item.note}
+					br
+					a(href='selected-post?id=' + item.id) View Post 
+		include includes/footer.pug

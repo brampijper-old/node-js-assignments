@@ -1,27 +1,33 @@
 html
+	include includes/head.pug
 	head
 	body
-		h1 The selected Post
-		br
-		br
-		each message in data
-			ul
-				li User: #{message.user.username}
-				li Says: #{message.note}
-				//- li Comments: #{message.comment.opinion}
+		div.header
+			div.row
+				div.large-12.columns
+					h2 The selected Post
+		div.containerpost.text-center
+			each message in data
+				ul
+					li #{message.user.username} Said:
+					li #{message.note}
+					br
 				form( method='post' action='/comment?id=' + message.id)
-					textarea(rows='2' name='comment')
-					input(type='submit' value='Comment' id='comment') 
-
-			if message.comments
-				each comment in message.comments
-					li User: #{comment.user.username}
-					li Comment: #{comment.opinion}
-			else
-				li No comments yet!
+					textarea.smalltextarea(rows='2' name='comment' required)
+					br
+					input.button(type='submit' value='Comment' id='comment') 
+					br
+					br
+					if message.comments
+						each comment in message.comments
+							ul
+								li #{comment.user.username} Commented:
+								li #{comment.opinion}
+					else
+						li No comments yet!
 		br
 		br
-		a(href='profile') Profile
+		include includes/footer.pug
 
 		
 		//- the data structure 

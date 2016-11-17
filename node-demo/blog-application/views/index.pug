@@ -1,22 +1,28 @@
 html
+	include includes/head.pug
 	head
 	body
-		h1 Log-in Page
-
-		form(action='/login' method='post')
-			label Emailadres
-			input#emailadres(name='email' required)
-			br
-			br
-			label Password
-			input#password(name='password' type='password' required)
-			br
-			br
-			input(type='submit' value='login' id='submit')
-			br
-			br
-			h2= message
-			br
-			br
-			p No account yet? 
-			a(href='register' action='/logout' method='get') Register!
+		div.header
+			div.row
+				div.large-12.columns
+					h2.white Log-in to share your feelings
+		br
+		br
+		form.data-abide(action='/login' method='post')
+			div.row.text-center
+				div.small-12-columns
+					input.field(name='email' placeholder='Your emailadress' type='email' required)
+					br
+					br
+					input.field(name='password' placeholder='Your password' type='password' required)
+					br
+					br
+					input.button(type='submit' value='Login' id='submit')
+					br
+					br
+					h2= message
+					br
+					br
+					p No account yet? 
+					a.button.secondary(href='register' action='/logout' method='get') Register!
+		include includes/footer.pug

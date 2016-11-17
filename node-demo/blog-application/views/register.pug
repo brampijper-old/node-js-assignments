@@ -1,22 +1,29 @@
 html
+	include includes/head.pug
 	head
 	body
-		h1 Register!! Yay
-
-		form(action='/create' method='post' autocomplete='off')
-			label Username
-			input#username(name='username' required)
-			br
-			br
-			label Emailadres
-			input#emailadres(name='email' required)
-			br
-			br
-			label Password
-			input#password(name='password' type='password' required)
-			br
-			br
-			input(type='submit' value='register' id='submit')
-			br
-			br
-			a(href='/' action='/' method='get') Log-in 
+		div.header
+			div.row
+				div.large-12.columns
+					h2 Register!! Yay
+		br
+		br
+		div.container.text-center
+			form(action='/create' method='post' autocomplete='off')
+				label Username
+				input.field(name='username' placeholder='Brammieboy' required)
+				br
+				br
+				label Emailadres
+				input.field(name='email' placeholder='your@emailadres.com' required)
+				br
+				br
+				label Password
+				input.field(name='password' placeholder='Ultra secure password' type='password' required)
+				br
+				br
+				input(type='submit' value='register' id='submit')
+				br
+				br
+				a(href='/' action='/' method='get') Log-in 
+		include includes/footer.pug

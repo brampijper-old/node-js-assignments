@@ -1,0 +1,55 @@
+$primary-color: #c0c5ce;
+$primary-font: Helvetica, sans-serif; 
+
+$secondary-color: #EE2737;
+
+$tertiary-color: #E6E6E6; 
+
+
+body {
+	background-color: $primary-color;
+	font: $primary-font;
+}
+
+.field {
+	width: 50%;
+	height:7%;
+	margin: 0 auto;
+	text-align:center;
+}
+
+h1, h2, h3, h4, p {
+	text-align:center;
+}
+
+.header {
+	background-color: $secondary-color;
+	padding:20px 0px 20px 0px;
+	margin-bottom:4%;
+}
+
+textarea {
+	width: 50%;
+	margin: 0 auto;
+}
+
+ul {
+	list-style: none;
+}
+
+.containerpost ul {
+	padding: 15px 0px 15px 0px;
+	background-color: $tertiary-color;
+	width:50%;
+	height:20%;
+	margin: 0 auto;
+	margin-bottom: 3%;
+}
+
+.containerpost ul li {
+	margin-top:1%;
+}
+
+.smalltextarea {
+	width: 25%;
+}

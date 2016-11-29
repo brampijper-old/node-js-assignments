@@ -1,48 +1,38 @@
 body {
-	background-color: #c0c5ce;
-	
-}
+  background-color: #c0c5ce;
+  font: Helvetica, sans-serif; }
 
 .field {
-	width: 50%;
-	height:7%;
-	margin: 0 auto;
-	text-align:center;
-}
+  width: 50%;
+  height: 7%;
+  margin: 0 auto;
+  text-align: center; }
 
 h1, h2, h3, h4, p {
-	text-align:center;
-}
+  text-align: center; }
 
 .header {
-	background-color:#EE2737;
-	padding-top:20px;
-	padding-bottom:20px;
-	margin-bottom:4%;
-}
+  background-color: #EE2737;
+  padding: 20px 0px 20px 0px;
+  margin-bottom: 4%; }
 
 textarea {
-	width: 50%;
-	margin: 0 auto;
-}
+  width: 50%;
+  margin: 0 auto; }
 
 ul {
-	list-style: none;
-}
+  list-style: none; }
 
 .containerpost ul {
-	padding: 15px 0px 15px 0px;
-	background-color: #E6E6E6;
-	width:50%;
-	height:20%;
-	margin: 0 auto;
-	margin-bottom: 3%;
-}
+  padding: 15px 0px 15px 0px;
+  background-color: #E6E6E6;
+  width: 50%;
+  height: 20%;
+  margin: 0 auto;
+  margin-bottom: 3%; }
 
 .containerpost ul li {
-	margin-top:1%;
-}
+  margin-top: 1%; }
 
 .smalltextarea {
-	width: 25%;
-}
+  width: 25%; }

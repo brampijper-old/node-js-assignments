@@ -41,3 +41,62 @@ module.exports = {
 	message: Message,
 	comment: Comment
 }
+
+db.sync({force: true}).then( () => {
+	User.create({
+		username: 'Cat',
+		email: 'cat@miauw.com',
+		password: 'pur' 
+	}).then( (user) => {
+		user.createMessage({
+			note: 'This blogging app works like crazy shit'
+		}).then( (user) => {
+			user.createComment({
+				opinion: 'No, this is amaaaaazing',
+				userId: '1'
+			})
+		}).then( () => {
+			Message.findOne({
+				where: {
+					id: '2'
+				}
+			}).then( (message) => {
+				message.createComment({
+					opinion: 'No, I just want sleep duhh',
+					userId: '2',
+					include: [{
+						model: User,
+						username: 'Lion-Man'
+					}]
+				})
+			} )
+		})
+	})
+}).then( ( ) => {
+		User.create({
+		username: 'Lion-Man',
+		email: 'lion@roar.com',
+		password: 'roar' 
+	}).then( (user) => {
+		user.createMessage({
+			note: 'I want to jump around in the nature'
+		})
+		// .then( (message) => {
+		// 	message.createComment({
+		// 		opinion: 'I hate you cat',
+		// 		userId: '2'
+		// 	})
+		// }).then( () => {
+		// 	Message.findOne({
+		// 		where: {
+		// 			id: '1'
+		// 		}
+		// 	}).then( (message) => {
+		// 		message.createComment({
+		// 			opinion: 'This is going to work perfectly',
+		// 			userId: '2'
+		// 		})
+		// 	})
+		// })
+	})
+})

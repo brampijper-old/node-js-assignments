@@ -42,6 +42,6 @@ app.use('/', allpostsRouter)
 app.use('/', logoutRouter)
 
 //Start the web-server on port 8000
-app.listen(8000, () => {
+app.listen(8080, () => {
 	console.log('Yaay, web-server is running!')
 })

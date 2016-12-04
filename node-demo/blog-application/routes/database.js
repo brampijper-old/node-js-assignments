@@ -35,13 +35,6 @@ Message.belongsTo(User)
 Comment.belongsTo(User)
 Comment.belongsTo(Message)
 
-module.exports = {
-	conn: db,
-	user: User,
-	message: Message,
-	comment: Comment
-}
-
 db.sync({force: true}).then( () => {
 	User.create({
 		username: 'Cat',
@@ -100,3 +93,11 @@ db.sync({force: true}).then( () => {
 		// })
 	})
 })
+
+//export defined modules
+module.exports = {
+	conn: db,
+	user: User,
+	message: Message,
+	comment: Comment
+}

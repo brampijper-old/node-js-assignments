@@ -13,7 +13,7 @@ router.get('/profile', (req, res) => {
 		})
 	}
 	else {
-		res.redirect('/login?message' + encodeURIComponent("Please log-in :)"))
+		res.redirect('/login?message=' + encodeURIComponent('Please log-in first;)'))
 	}
 })
 

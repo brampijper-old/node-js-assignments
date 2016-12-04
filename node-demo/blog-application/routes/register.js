@@ -7,6 +7,7 @@ const bcrypt		= require ('bcrypt-nodejs')
 const router  		= express.Router ( )
 
 let db = require(__dirname + '/database')
+db.conn.sync()
 
 router.get('/register', (req, res) => {
 	if(req.session.email) {
@@ -26,10 +27,8 @@ router.post('/register', (req, res) => {
 					email: req.body.email,
 					password: hash
 				}).then(function () {
-					db.conn.sync().then(function() {
 					console.log('User Added')
 					res.redirect('/login?message' + encodeURIComponent("Please log-in"))
-					})
 				})
 			})
 	} 
